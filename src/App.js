@@ -9,7 +9,6 @@ import AppBar from '@mui/material/AppBar'
 import './components/Filter.scss'
 import { useState, useRef } from 'react'
 import Pagination from '@mui/material/Pagination'
-import { setSelectionRange } from '@testing-library/user-event/dist/utils'
 
 function App() {
   const apiUrl = 'https://devapi-indexer.elevatustesting.xyz/api/v1/jobs'
@@ -43,8 +42,6 @@ function App() {
         },
       })
       .then((response) => {
-        console.log(response)
-
         setTitles((current) => [
           ...current,
           ...response.data.results.jobs.map((x) => ({
@@ -56,8 +53,6 @@ function App() {
           { jobs: response.data.results.jobs, page: reqB4.current },
         ])
         reqB4.current = reqB4.current + 1
-        console.log(reqB4.current)
-
         if (response.data.results.jobs < reqB3) {
           setHighestPage(reqB4.current)
           return response
@@ -79,7 +74,6 @@ function App() {
     setUnique(
       titles.filter((x, y, z) => y === z.findIndex((m) => m.title === x.title))
     )
-    console.log(unique, 'unique')
   }, [titles])
 
   return (
