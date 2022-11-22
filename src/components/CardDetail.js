@@ -19,10 +19,6 @@ export default function CardDetail({ info, page, loading }) {
     setOpen(false)
   }
 
-  useEffect(() => {
-    console.log(page, info, 'page')
-  }, [page, info])
-
   const cardClick = (card) => {
     setSelectedCard(info.filter((z) => z.uuid === card.uuid))
   }
