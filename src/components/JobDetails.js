@@ -241,7 +241,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
               </div>
             </CardContent>
           </Card>
-          <div className="bottomsideparent">
+          <div className="bottomsideparent cardvisible">
             <div className="bottomside">
               {cardsOnPage.map((x) => (
                 <Card
