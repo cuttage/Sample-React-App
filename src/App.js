@@ -4,11 +4,13 @@ import Main from './components/Main'
 import { useCallback, useEffect } from 'react'
 import axios from 'axios'
 import Button from '@mui/material/Button'
-import AutocompleteInput from './components/AutocompleteInput'
 import AppBar from '@mui/material/AppBar'
 import './components/Filter.scss'
 import { useState, useRef } from 'react'
 import Pagination from '@mui/material/Pagination'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import PaginationItem from '@mui/material/PaginationItem'
 
 function App() {
   const apiUrl = 'https://devapi-indexer.elevatustesting.xyz/api/v1/jobs'
@@ -17,14 +19,48 @@ function App() {
   const reqB3 = 7
   const [titles, setTitles] = useState([])
   const [info, setInfo] = useState([])
+  const [filteredInfo, setFilteredInfo] = useState([])
   let reqB4 = useRef(0)
   const [highestPage, setHighestPage] = useState(null)
+  const [highestPageSent, setHighestPageSent] = useState(null)
   const dataFetchedRef = useRef(false)
   const [unique, setUnique] = useState([])
 
   const [page, setPage] = useState(1)
+
+  const [value, setValue] = useState('')
+  const [sent, setSent] = useState(false)
+
+  const handleInputChange = (event) => {
+    setValue(event.target.value)
+    console.log(value, 'value')
+    if (!event?.target?.value || event?.target?.value?.length === 0) {
+      setSent(false)
+    }
+  }
+
+  const handleSelectionChange = (event, values) => {
+    setValue(values)
+    console.log(value, 'value sel')
+    if (!values || values?.length === 0) {
+      setSent(false)
+    }
+  }
+
   const handleChange = (event, value) => {
     setPage(value)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setFilteredInfo(
+      info
+        .map((x) => x.jobs.filter((y) => y.title === value))
+        .filter((z) => z.length > 0)
+        .flat()
+    )
+    setHighestPageSent(1)
+    setSent(true)
   }
 
   const callRecursive = useCallback(() => {
@@ -76,6 +112,10 @@ function App() {
     )
   }, [titles])
 
+  useEffect(() => {
+    console.log(info, value)
+  }, [info, value])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -85,24 +125,99 @@ function App() {
             color="transparent"
             classes={{ root: 'appbar' }}
           >
-            <AutocompleteInput titles={unique}></AutocompleteInput>
-            <Button variant="contained">Contained</Button>
+            <form onSubmit={handleSubmit} className="appbarchild">
+              <Autocomplete
+                disabled={!highestPage}
+                sx={{ width: 300 }}
+                classes={{ root: 'acm' }}
+                id="free-solo"
+                freeSolo
+                options={unique.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField {...params} label="Job Title" />
+                )}
+                onInputChange={handleInputChange}
+                onChange={handleSelectionChange}
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ backgroundColor: 'darkblue' }}
+                disabled={!value || value?.length === 0}
+              >
+                Search
+              </Button>
+            </form>
           </AppBar>
         </Filter>
-        {info?.length > 0 &&
-          info
-            .filter((x) => x.jobs.length > 0)
-            .map(
-              (singleInfo) =>
-                singleInfo.page === page && (
-                  <Main info={singleInfo?.jobs} page={singleInfo?.page}></Main>
-                )
+        {sent
+          ? filteredInfo?.length > 0 && (
+              <Main
+                info={filteredInfo}
+                page="1"
+                loading={'Recent Openings'}
+              ></Main>
+            )
+          : info?.length > 0 &&
+            info
+              .filter((x) => x?.jobs?.length > 0)
+              .map(
+                (singleInfo) =>
+                  singleInfo?.page === page && (
+                    <Main
+                      info={singleInfo?.jobs}
+                      page={singleInfo?.page}
+                      loading={
+                        !highestPage ? 'Data is loading...' : 'Recent Openings'
+                      }
+                    ></Main>
+                  )
+              )}
+        <div style={{ padding: '16px' }}>
+          <Pagination
+            count={!sent ? highestPage - 1 : highestPageSent}
+            page={page}
+            onChange={handleChange}
+            variant="outlined"
+            size="large"
+            color="primary"
+            renderItem={(item) => (
+              <PaginationItem
+                components={{
+                  next: (props) => (
+                    <div
+                      style={{
+                        color: 'grey',
+                        border: '1px solid transparent',
+                        margin: '2px',
+                      }}
+                      type="button"
+                      {...props}
+                    >
+                      Next
+                    </div>
+                  ),
+                  previous: (props) => (
+                    <div
+                      style={{
+                        color: 'grey',
+                        border: '1px solid transparent',
+                        margin: '2px',
+                      }}
+                      type="button"
+                      {...props}
+                    >
+                      Previous
+                    </div>
+                  ),
+                }}
+                {...item}
+              />
             )}
-        <Pagination
-          count={highestPage - 1}
-          page={page}
-          onChange={handleChange}
-        />
+            showFirstButton
+            showLastButton
+          />
+        </div>
       </header>
     </div>
   )

@@ -1,9 +1,18 @@
 .appbar {
+  border: 1px solid #cfcfcf;
+  border-radius: 5px;
+  background-color: #d8d8d8 !important;
+  padding: 10px;
+  width: 90vw !important;
+}
+
+.appbarchild {
   display: flex;
   justify-content: space-evenly;
-  border: 1px solid grey;
   flex-direction: row !important;
-  border-radius: 5px;
-  background-color: lightgray !important;
-  padding: 10px;
+}
+
+.acm {
+  background-color: white;
+  border-radius: 4px;
 }

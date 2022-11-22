@@ -3,6 +3,8 @@
   width: 90vw;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-flow: row wrap;
+  padding: 16px;
 }
 .child {
   height: auto;
@@ -17,8 +19,189 @@
   flex-grow: 1;
 }
 
+.cardlistitems {
+  display: inline-flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.infos {
+  text-align: left;
+  margin-left: 5px;
+  padding: 16px;
+  font-size: 40px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.modalstyle {
+  margin: 0;
+  justify-self: center;
+  align-items: center;
+  display: flex;
+  height: 85vh;
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+.modalparent {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 5px;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #e2e2e2;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+.dialogactionsroot {
+  border: 1px solid red;
+}
+
+.modalback {
+  background-color: #e2e2e2;
+}
+
+.modalstyle {
+  max-height: 90vh;
+  height: auto;
+  max-width: 100vw;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  font-size: 1rem;
+  overflow: scroll;
+  .modalstylechild {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.modalstyle {
+  flex: auto;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flexbox3 {
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.flexbox2 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  max-width: 90%;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-left: 16px;
+  margin-left: 5px;
+  .itemflex2 {
+    margin-left: 5px;
+    margin-top: 6px;
+  }
+}
+
+.flexboxparentin {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  width: 50%;
+  .flexbox {
+    justify-content: space-between;
+  }
+  &:last-child {
+    border-left: 1px solid lightgray;
+    margin-left: 10px;
+  }
+}
+
+.cardbox {
+  height: auto;
+  padding-bottom: 16px !important;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardparentw {
+  max-width: 90% !important;
+}
+
+.normaltext {
+  font-size: 1rem;
+  text-align: left;
+  padding-left: 16px;
+  margin-left: 5px;
+}
+
+.titletext {
+  font-size: 1.4rem;
+  text-align: left;
+  padding-left: 16px;
+  margin-left: 5px;
+  margin-top: 16px;
+}
+
+.smalltexttitle {
+  font-size: 0.9rem;
+  text-align: left;
+  padding-left: 16px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.flexboxaligned {
+  align-items: flex-start;
+  margin-left: 5px;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.flexstretch {
+  margin-left: 20px;
+  margin-top: 16px;
+}
+
+.flexboxparentin2 {
+  display: flex;
+  justify-content: space-between;
+  max-width: 80%;
+  .flexbox {
+    &:last-child {
+      margin-left: 16px;
+    }
+  }
+}
+
 @media only screen and (max-width: 659px) {
   .wrapper {
     justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 660px) {
+  .wrapper::after {
+    content: '';
+    flex: auto;
   }
 }
