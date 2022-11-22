@@ -27,6 +27,12 @@
   width: 90%;
 }
 
+.cardlistitems {
+  > * {
+    margin-left: 2px;
+  }
+}
+
 .infos {
   text-align: left;
   margin-left: 5px;
@@ -129,7 +135,10 @@
   .flexboxaligned {
     > div,
     > .smalltexttext {
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
       hyphens: auto;
     }
   }
@@ -196,6 +205,18 @@
   }
 }
 
+.innerh {
+  display: flex;
+  flex-direction: column;
+  > ul {
+    > li {
+      list-style-type: '\23BC';
+      list-style-position: outside;
+      padding-left: 0.9rem;
+    }
+  }
+}
+
 .titletext {
   display: flex;
   font-size: 1.4rem;
@@ -238,11 +259,52 @@
   justify-content: space-between;
   max-width: 98%;
   margin-bottom: 24px;
+  overflow: visible;
   .flexbox {
+    > a {
+      overflow: visible;
+      height: 50%;
+    }
     &:last-child {
       margin-left: 16px;
     }
   }
+}
+
+.bottomside {
+  display: block;
+  width: 100%;
+  overflow-x: scroll;
+  margin: 0;
+  white-space: nowrap;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.bottomsideparent {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.cardclasscarousel {
+  display: inline-block;
+  margin: 0 10px;
+  background: rgba(0, 0, 0, 0.05) no-repeat center center;
+  background-size: cover;
+  position: relative;
+  border-radius: 20px;
+  height: 200px;
+  box-shadow: 0 0 10px #dfdfdf;
+  cursor: pointer;
+}
+
+.grandwrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 @media only screen and (max-width: 906px) {

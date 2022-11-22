@@ -34,7 +34,6 @@ function App() {
 
   const handleInputChange = (event) => {
     setValue(event.target.value)
-    console.log(value, 'value')
     if (!event?.target?.value || event?.target?.value?.length === 0) {
       setSent(false)
     }
@@ -42,7 +41,6 @@ function App() {
 
   const handleSelectionChange = (event, values) => {
     setValue(values)
-    console.log(value, 'value sel')
     if (!values || values?.length === 0) {
       setSent(false)
     }
@@ -112,10 +110,6 @@ function App() {
       titles.filter((x, y, z) => y === z.findIndex((m) => m.title === x.title))
     )
   }, [titles])
-
-  useEffect(() => {
-    console.log(info, value)
-  }, [info, value])
 
   return (
     <div className="App">

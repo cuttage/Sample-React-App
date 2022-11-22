@@ -20,8 +20,12 @@ export default function CardDetail({ info, page, loading }) {
   }
 
   useEffect(() => {
-    console.log(open, 'open')
-  }, [open])
+    console.log(page, info, 'page')
+  }, [page, info])
+
+  const cardClick = (card) => {
+    setSelectedCard(info.filter((z) => z.uuid === card.uuid))
+  }
 
   return (
     <div className="grandWrapper">
@@ -104,6 +108,8 @@ export default function CardDetail({ info, page, loading }) {
             <JobDetails
               open={open}
               info={selectedCard && selectedCard[0]}
+              cardsOnPage={info}
+              cardClick={cardClick}
             ></JobDetails>
             <IconButton
               onClick={handleCloseIcon}

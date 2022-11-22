@@ -4,9 +4,9 @@ import CardContent from '@mui/material/CardContent'
 import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
 import { SocialIcon } from 'react-social-icons'
+import Typography from '@mui/material/Typography'
 
-const JobDetails = ({ info, open }) => {
-  console.log(info)
+const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
   const postedDate = Date.parse(info.posted_at.split(' ')[0])
   const options = {
     weekday: 'long',
@@ -15,7 +15,6 @@ const JobDetails = ({ info, open }) => {
     day: 'numeric',
   }
   const langProficiency = (proficiency) => {
-    console.log(proficiency, typeof proficiency)
     switch (proficiency) {
       case 1:
         return 'Beginner'
@@ -45,7 +44,7 @@ const JobDetails = ({ info, open }) => {
   return (
     <>
       {open && (
-        <>
+        <div className="grandwrapper">
           <Card
             sx={{ minWidth: 275, maxWidth: '90vw', overflowY: 'auto' }}
             classes={{ root: 'cardvisible' }}
@@ -66,14 +65,14 @@ const JobDetails = ({ info, open }) => {
                   <div className="titletext">Description</div>
                   {info.description?.length > 0 && (
                     <div
-                      className="normaltext"
+                      className="normaltext innerh"
                       dangerouslySetInnerHTML={{ __html: info.description }}
                     ></div>
                   )}
                   <div className="titletext">Requirements</div>
                   {info.requirements?.length > 0 && (
                     <div
-                      className="normaltext"
+                      className="normaltext innerh"
                       dangerouslySetInnerHTML={{ __html: info.requirements }}
                     ></div>
                   )}
@@ -215,14 +214,17 @@ const JobDetails = ({ info, open }) => {
                       <div className="titletext">Share</div>
                       <SocialIcon
                         className="flexstretch"
+                        style={{ height: 25, width: 25 }}
                         url="https://www.facebook.com/"
                       ></SocialIcon>
                       <SocialIcon
                         className="flexstretch"
+                        style={{ height: 25, width: 25 }}
                         url="https://twitter.com/"
                       ></SocialIcon>
                       <SocialIcon
                         className="flexstretch"
+                        style={{ height: 25, width: 25 }}
                         url="https://www.linkedin.com/"
                       ></SocialIcon>
                     </div>
@@ -239,8 +241,68 @@ const JobDetails = ({ info, open }) => {
               </div>
             </CardContent>
           </Card>
+          <div className="bottomsideparent">
+            <div className="bottomside">
+              {cardsOnPage.map((x) => (
+                <Card
+                  sx={{ width: 274, margin: '16px' }}
+                  classes={{ root: 'cardclasscarousel' }}
+                  onClick={(event) => cardClick(x)}
+                >
+                  <CardContent>
+                    <div className="titletext">
+                      {x?.title?.charAt(0).toUpperCase() + x?.title?.slice(1)}
+                    </div>
+                    <div className="normaltext">
+                      {x?.location?.city?.charAt(0).toUpperCase() +
+                        x?.location?.city?.slice(1)}
+                      {x?.location?.city &&
+                        x?.location?.country &&
+                        `, ${
+                          x?.location?.country?.charAt(0).toUpperCase() +
+                          x?.location?.country?.slice(1)
+                        }`}
+                    </div>
+                    <Divider light sx={{ marginTop: '16px' }} />
+                    <div className="cardlistitems cardlistitems2">
+                      {x.career_level.length > 0 && (
+                        <>
+                          <Typography variant="body2">
+                            {x.career_level}
+                          </Typography>
+                          <Divider />
+                        </>
+                      )}
+                      {x?.industry?.map((item, i) => (
+                        <div key={i + item}>
+                          <Typography variant="body2">
+                            {item.charAt(0).toUpperCase() + item.slice(1) + ','}
+                          </Typography>
+                        </div>
+                      ))}
+                      {x?.skills?.map((item, i, all) => (
+                        <div key={i + item}>
+                          {i + 1 === all.length ? (
+                            <Typography variant="body2">
+                              {item.charAt(0).toUpperCase() + item.slice(1)}
+                            </Typography>
+                          ) : (
+                            <Typography variant="body2">
+                              {item.charAt(0).toUpperCase() +
+                                item.slice(1) +
+                                ','}
+                            </Typography>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
           <div className="nomessage">Please resize the screen.</div>
-        </>
+        </div>
       )}
     </>
   )
