@@ -11,6 +11,7 @@ import Pagination from '@mui/material/Pagination'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import PaginationItem from '@mui/material/PaginationItem'
+import Typography from '@mui/material/Typography'
 
 function App() {
   const apiUrl = 'https://devapi-indexer.elevatustesting.xyz/api/v1/jobs'
@@ -119,6 +120,25 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <AppBar
+          position="static"
+          sx={{
+            backgroundColor: 'black',
+          }}
+        >
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              flexGrow: 1,
+              textAlign: 'left',
+              margin: '20px',
+              paddingLeft: '20px',
+            }}
+          >
+            Logo
+          </Typography>
+        </AppBar>
         <Filter>
           <AppBar
             position="static"
@@ -183,6 +203,15 @@ function App() {
             color="primary"
             renderItem={(item) => (
               <PaginationItem
+                sx={{
+                  color: 'darkblue',
+                  border: '1px solid transparent',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    color: 'darkblue',
+                    border: '1px solid darkblue',
+                  },
+                }}
                 components={{
                   next: (props) => (
                     <div

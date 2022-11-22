@@ -245,13 +245,13 @@
   }
 }
 
-@media only screen and (max-width: 659px) {
+@media only screen and (max-width: 906px) {
   .wrapper {
     justify-content: center;
   }
 }
 
-@media only screen and (min-width: 660px) {
+@media only screen and (min-width: 907px) {
   .wrapper::after {
     content: '';
     flex: auto;
@@ -292,5 +292,13 @@
     align-self: center;
     text-align: center;
     font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 1010px) {
+  .wrapper {
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
