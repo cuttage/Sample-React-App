@@ -27,8 +27,8 @@ export default function CardDetail({ info, page, loading }) {
     <div className="grandWrapper">
       <div className="infos">{loading}</div>
       <div className="wrapper">
-        {info?.map((each) => (
-          <Card sx={{ minWidth: 275 }} className="child">
+        {info?.map((each, i) => (
+          <Card sx={{ minWidth: 275 }} className="child" key={each?.title + i}>
             <CardContent className="grow">
               {each.title.length > 0 && (
                 <>

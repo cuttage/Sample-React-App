@@ -176,9 +176,10 @@ function App() {
             info
               .filter((x) => x?.jobs?.length > 0)
               .map(
-                (singleInfo) =>
+                (singleInfo, i) =>
                   singleInfo?.page === page && (
                     <Main
+                      key={i + singleInfo?.page}
                       info={singleInfo?.jobs}
                       page={singleInfo?.page}
                       loading={

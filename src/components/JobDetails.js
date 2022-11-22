@@ -243,11 +243,12 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
           </Card>
           <div className="bottomsideparent cardvisible">
             <div className="bottomside">
-              {cardsOnPage.map((x) => (
+              {cardsOnPage.map((x, i) => (
                 <Card
                   sx={{ width: 274, margin: '16px' }}
                   classes={{ root: 'cardclasscarousel' }}
                   onClick={(event) => cardClick(x)}
+                  key={x?.title + i}
                 >
                   <CardContent>
                     <div className="titletext">
