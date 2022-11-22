@@ -156,13 +156,13 @@ const JobDetails = ({ info, open }) => {
                     <div key={i + x} className="itemflex2">
                       {i + 1 === z.length ? (
                         <Chip
-                          sx={{ maxWidth: '200px' }}
+                          sx={{ maxWidth: '250px' }}
                           label={`${Object.keys(x)} -
                             ${langProficiency(Object.values(x)[0])}`}
                         />
                       ) : (
                         <Chip
-                          sx={{ maxWidth: '200px' }}
+                          sx={{ maxWidth: '250px' }}
                           label={`${Object.keys(x)} -
                             ${langProficiency(Object.values(x)[0])}`}
                         />
