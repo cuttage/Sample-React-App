@@ -80,7 +80,15 @@ export default function CardDetail({ info, page, loading }) {
               <Button
                 size="small"
                 variant="outlined"
-                sx={{ color: 'darkblue', border: '1px solid #1b0f90' }}
+                sx={{
+                  color: 'darkblue',
+                  border: '1px solid #1b0f90',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    color: 'darkblue',
+                    border: '1px solid #1b0f90',
+                  },
+                }}
                 onClick={() => {
                   setSelectedCard(info.filter((z) => z.uuid === each.uuid))
                   handleOpen()
@@ -101,13 +109,16 @@ export default function CardDetail({ info, page, loading }) {
               onClick={handleCloseIcon}
               sx={{
                 position: 'fixed',
-                right: '5px',
+                right: '11px',
                 top: '10px',
                 color: 'darkblue',
                 border: '1px solid #1b0f90',
                 backgroundColor: 'white',
+                '&:hover': {
+                  backgroundColor: 'white',
+                },
               }}
-              size="small"
+              size="large"
             >
               <CloseIcon />
             </IconButton>
