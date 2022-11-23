@@ -5,8 +5,10 @@ import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
 import { SocialIcon } from 'react-social-icons'
 import Typography from '@mui/material/Typography'
+import { useTranslation } from 'react-i18next'
 
 const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
+  const { t } = useTranslation()
   const postedDate = Date.parse(info.posted_at.split(' ')[0])
   const options = {
     weekday: 'long',
@@ -14,22 +16,24 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
     month: 'long',
     day: 'numeric',
   }
+  //support for strings could be implemented but it is a best practice to send consistent data from the backend, so we will handle only numbers
   const langProficiency = (proficiency) => {
     switch (proficiency) {
       case 1:
-        return 'Beginner'
+        return `${t('beginner')}`
       case 2:
-        return 'Pre-intermediate'
+        return `${t('pre-intermediate')}`
       case 3:
-        return 'Intermediate'
+        return `${t('intermediate')}`
       case 4:
-        return 'Fluent'
+        return `${t('fluent')}`
       case 5:
-        return 'Full professional proficiency'
+        return `${t('full professional proficiency')}`
       default:
-        return 'N/A'
+        return `${t('n/a')}`
     }
   }
+  //for the purpose of showcasing we didn't but internationalization support should be added to the code below.
   const date = new Intl.DateTimeFormat('en-US', options).format(postedDate)
   const capitalize = (str) => {
     if (typeof str === 'string') {
@@ -61,22 +65,24 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                       />
                     )}
                   </div>
-                  <div className="normaltext">Posted on {date}</div>
-                  <div className="titletext">Description</div>
+                  <div className="normaltext">
+                    {t('posted on')} {date}
+                  </div>
+                  <div className="titletext">{t('description')}</div>
                   {info.description?.length > 0 && (
                     <div
                       className="normaltext innerh"
                       dangerouslySetInnerHTML={{ __html: info.description }}
                     ></div>
                   )}
-                  <div className="titletext">Requirements</div>
+                  <div className="titletext">{t('requirements')}</div>
                   {info.requirements?.length > 0 && (
                     <div
                       className="normaltext innerh"
                       dangerouslySetInnerHTML={{ __html: info.requirements }}
                     ></div>
                   )}
-                  <div className="titletext">Summary</div>
+                  <div className="titletext">{t('summary')}</div>
                   <Card
                     sx={{ height: 'auto', padding: 0 }}
                     classes={{
@@ -90,13 +96,15 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                     >
                       <div className="flexboxparentin">
                         <div className="flexbox3">
-                          <div className="smalltexttitle">Salary Range:</div>
+                          <div className="smalltexttitle">
+                            {t('salary range')}:
+                          </div>
                           <div className="smalltexttext">
                             {info?.salary?.min} - {info?.salary?.max}
                           </div>
                         </div>
                         <div className="flexbox3">
-                          <div className="smalltexttitle">Industry:</div>
+                          <div className="smalltexttitle">{t('industry')}:</div>
                           {info?.industry?.map((x, i, z) => (
                             <div key={i + x} className="flexbox flexboxaligned">
                               {i + 1 === z.length ? (
@@ -113,7 +121,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                         </div>
                         <div className="flexbox3">
                           <div className="smalltexttitle">
-                            Experience Required:
+                            {t('experience required')}:
                           </div>
                           {info?.years_of_experience?.map((x, i, z) => (
                             <div key={i + x} className="flexbox flexboxaligned">
@@ -130,7 +138,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                                 className="smalltexttext"
                                 style={{ paddingLeft: '2px' }}
                               >
-                                year(s) minimum
+                                {t('year(s) minimum')}
                               </div>
                             </div>
                           ))}
@@ -138,7 +146,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                       </div>
                       <div className="flexboxparentin">
                         <div className="flexbox3">
-                          <div className="smalltexttitle">Major:</div>
+                          <div className="smalltexttitle">{t('major')}:</div>
                           {info?.major?.map((x, i, z) => (
                             <div key={i + x} className="flexbox flexboxaligned">
                               {i + 1 === z.length ? (
@@ -154,7 +162,9 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                           ))}
                         </div>
                         <div className="flexbox3">
-                          <div className="smalltexttitle">Career Level:</div>
+                          <div className="smalltexttitle">
+                            {t('career level')}:
+                          </div>
                           {info?.career_level?.map((x, i, z) => (
                             <div key={i + x} className="flexbox flexboxaligned">
                               {i + 1 === z.length ? (
@@ -170,13 +180,15 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                           ))}
                         </div>
                         <div className="flexbox3">
-                          <div className="smalltexttitle">Minimum GPA:</div>
+                          <div className="smalltexttitle">
+                            {t('minimum GPA')}:
+                          </div>
                           <div className="smalltexttext">{info.gpa}</div>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
-                  <div className="titletext">Required Skills</div>
+                  <div className="titletext">{t('required skills')}</div>
                   <div className="flexbox2">
                     {info?.skills?.map((x, i) => (
                       <div key={i + x} className="itemflex2">
@@ -188,7 +200,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                     ))}
                   </div>
                   <Divider light sx={{ marginTop: '16px' }} />
-                  <div className="titletext">Languages</div>
+                  <div className="titletext">{t('languages')}</div>
                   <div className="flexbox2">
                     {info?.languages?.map((x, i, z) => (
                       <div key={i + x} className="itemflex2">
@@ -211,7 +223,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                   <Divider light sx={{ marginTop: '16px' }} />
                   <div className="flexboxparentin2">
                     <div className="flexbox">
-                      <div className="titletext">Share</div>
+                      <div className="titletext">{t('share')}</div>
                       <SocialIcon
                         className="flexstretch"
                         style={{ height: 25, width: 25 }}
@@ -233,7 +245,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
                         variant="contained"
                         sx={{ backgroundColor: 'darkblue', marginTop: '16px' }}
                       >
-                        Apply
+                        {t('apply')}
                       </Button>
                     </div>
                   </div>
@@ -302,7 +314,7 @@ const JobDetails = ({ info, open, cardsOnPage, cardClick }) => {
               ))}
             </div>
           </div>
-          <div className="nomessage">Please resize the screen.</div>
+          <div className="nomessage">{t('please resize the screen')}.</div>
         </div>
       )}
     </>

@@ -9,8 +9,10 @@ import { useState } from 'react'
 import JobDetails from './JobDetails'
 import { IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { useTranslation } from 'react-i18next'
 
 export default function CardDetail({ info, page, loading }) {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const [selectedCard, setSelectedCard] = useState(null)
@@ -94,7 +96,7 @@ export default function CardDetail({ info, page, loading }) {
                   handleOpen()
                 }}
               >
-                View
+                {t('viewer')}
               </Button>
             </CardActions>
           </Card>

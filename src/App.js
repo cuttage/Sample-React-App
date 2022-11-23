@@ -6,14 +6,16 @@ import axios from 'axios'
 import Button from '@mui/material/Button'
 import AppBar from '@mui/material/AppBar'
 import './components/Filter.scss'
-import { useState, useRef } from 'react'
+import { useState, useRef, Suspense } from 'react'
 import Pagination from '@mui/material/Pagination'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import PaginationItem from '@mui/material/PaginationItem'
 import Typography from '@mui/material/Typography'
+import { useTranslation } from 'react-i18next'
 
 function App() {
+  const { t } = useTranslation()
   const apiUrl = 'https://devapi-indexer.elevatustesting.xyz/api/v1/jobs'
   const reqB1 = 'ee5d991c-cdc6-4e83-b0b3-96f147208549'
   const reqB2 = ''
@@ -112,138 +114,142 @@ function App() {
   }, [titles])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <AppBar
-          position="static"
-          sx={{
-            backgroundColor: 'black',
-          }}
-        >
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{
-              flexGrow: 1,
-              textAlign: 'left',
-              margin: '20px',
-              paddingLeft: '20px',
-            }}
-          >
-            Logo
-          </Typography>
-        </AppBar>
-        <Filter>
+    <Suspense fallback="loading">
+      <div className="App">
+        <header className="App-header">
           <AppBar
             position="static"
-            color="transparent"
-            classes={{ root: 'appbar' }}
+            sx={{
+              backgroundColor: 'black',
+            }}
           >
-            <form onSubmit={handleSubmit} className="appbarchild">
-              <Autocomplete
-                disabled={!highestPage}
-                sx={{ width: 300 }}
-                classes={{ root: 'acm' }}
-                id="free-solo"
-                freeSolo
-                options={unique.map((option) => option.title)}
-                renderInput={(params) => (
-                  <TextField {...params} label="Job Title" />
-                )}
-                onInputChange={handleInputChange}
-                onChange={handleSelectionChange}
-              />
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{ backgroundColor: 'darkblue' }}
-                disabled={!value || value?.length === 0}
-              >
-                Search
-              </Button>
-            </form>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                textAlign: 'left',
+                margin: '20px',
+                paddingLeft: '20px',
+              }}
+            >
+              {t('logo')}
+            </Typography>
           </AppBar>
-        </Filter>
-        {sent
-          ? filteredInfo?.length > 0 && (
-              <Main
-                info={filteredInfo}
-                page="1"
-                loading={'Recent Openings'}
-              ></Main>
-            )
-          : info?.length > 0 &&
-            info
-              .filter((x) => x?.jobs?.length > 0)
-              .map(
-                (singleInfo, i) =>
-                  singleInfo?.page === page && (
-                    <Main
-                      key={i + singleInfo?.page}
-                      info={singleInfo?.jobs}
-                      page={singleInfo?.page}
-                      loading={
-                        !highestPage ? 'Data is loading...' : 'Recent Openings'
-                      }
-                    ></Main>
-                  )
-              )}
-        <div style={{ padding: '16px' }}>
-          <Pagination
-            count={!sent ? highestPage - 1 : highestPageSent}
-            page={page}
-            onChange={handleChange}
-            variant="outlined"
-            size="large"
-            color="primary"
-            renderItem={(item) => (
-              <PaginationItem
-                sx={{
-                  color: 'darkblue',
-                  border: '1px solid transparent',
-                  '&:hover': {
-                    backgroundColor: 'white',
+          <Filter>
+            <AppBar
+              position="static"
+              color="transparent"
+              classes={{ root: 'appbar' }}
+            >
+              <form onSubmit={handleSubmit} className="appbarchild">
+                <Autocomplete
+                  disabled={!highestPage}
+                  sx={{ width: 300 }}
+                  classes={{ root: 'acm' }}
+                  id="free-solo"
+                  freeSolo
+                  options={unique.map((option) => option.title)}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Job Title" />
+                  )}
+                  onInputChange={handleInputChange}
+                  onChange={handleSelectionChange}
+                />
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{ backgroundColor: 'darkblue' }}
+                  disabled={!value || value?.length === 0}
+                >
+                  {t('search')}
+                </Button>
+              </form>
+            </AppBar>
+          </Filter>
+          {sent
+            ? filteredInfo?.length > 0 && (
+                <Main
+                  info={filteredInfo}
+                  page="1"
+                  loading={t('recent openings')}
+                ></Main>
+              )
+            : info?.length > 0 &&
+              info
+                .filter((x) => x?.jobs?.length > 0)
+                .map(
+                  (singleInfo, i) =>
+                    singleInfo?.page === page && (
+                      <Main
+                        key={i + singleInfo?.page}
+                        info={singleInfo?.jobs}
+                        page={singleInfo?.page}
+                        loading={
+                          !highestPage
+                            ? `${t('data is loading')}`
+                            : `${t('recent openings')}`
+                        }
+                      ></Main>
+                    )
+                )}
+          <div style={{ padding: '16px' }}>
+            <Pagination
+              count={!sent ? highestPage - 1 : highestPageSent}
+              page={page}
+              onChange={handleChange}
+              variant="outlined"
+              size="large"
+              color="primary"
+              renderItem={(item) => (
+                <PaginationItem
+                  sx={{
                     color: 'darkblue',
-                    border: '1px solid darkblue',
-                  },
-                }}
-                components={{
-                  next: (props) => (
-                    <div
-                      style={{
-                        color: 'grey',
-                        border: '1px solid transparent',
-                        margin: '2px',
-                      }}
-                      type="button"
-                      {...props}
-                    >
-                      Next
-                    </div>
-                  ),
-                  previous: (props) => (
-                    <div
-                      style={{
-                        color: 'grey',
-                        border: '1px solid transparent',
-                        margin: '2px',
-                      }}
-                      type="button"
-                      {...props}
-                    >
-                      Previous
-                    </div>
-                  ),
-                }}
-                {...item}
-              />
-            )}
-            showFirstButton
-            showLastButton
-          />
-        </div>
-      </header>
-    </div>
+                    border: '1px solid transparent',
+                    '&:hover': {
+                      backgroundColor: 'white',
+                      color: 'darkblue',
+                      border: '1px solid darkblue',
+                    },
+                  }}
+                  components={{
+                    next: (props) => (
+                      <div
+                        style={{
+                          color: 'grey',
+                          border: '1px solid transparent',
+                          margin: '2px',
+                        }}
+                        type="button"
+                        {...props}
+                      >
+                        {t('next')}
+                      </div>
+                    ),
+                    previous: (props) => (
+                      <div
+                        style={{
+                          color: 'grey',
+                          border: '1px solid transparent',
+                          margin: '2px',
+                        }}
+                        type="button"
+                        {...props}
+                      >
+                        {t('previous')}
+                      </div>
+                    ),
+                  }}
+                  {...item}
+                />
+              )}
+              showFirstButton
+              showLastButton
+            />
+          </div>
+        </header>
+      </div>
+    </Suspense>
   )
 }
 
