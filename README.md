@@ -12,6 +12,7 @@ It took me two days to create from scratch and release this project.
 - For showcasing, we added one translation only.
 - We decided to implement the Job Detail page as a modal to increase performance and to slightly change its layout for UX purposes, to limit responsive layout changes and, for best practice purposes, to avoid flooding the code with media queries or creating redundant code.
 - The data is fetched only once recursively and not every time the data is filtered for performance purposes. Data results are paginated and you can see the first page straightaway while data is loaded in the background. Filtering and pagination navigation are available once all data is fetched.
+- Due to limited time, the project is guaranteed for consistency in Chrome Version 107.0.5304.110 (Official Build) (x86_64) only.
 
 ## Available Scripts
 
