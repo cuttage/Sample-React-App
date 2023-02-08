@@ -1,47 +1,26 @@
-# Getting Started with Create React App
+# Job Search App -- Custom request example ADVANCED
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A fully functional Job Search one-page web app in ReactJS. I display a list of jobs where you can filter the results by title. While a large amount of data is loaded in the background, you can view single job details. Once the data is loaded, you can navigate the listings at the bottom of the page and filter the listings at the top. You can't apply for jobs on purpose.
+This is a custom request example of an advanced web app.
 
-# Welcome to my Simple React App
+## Technical info
 
-A simple fully functional jobs listing app mini project. We display a list of jobs where users can filter the results by title. We will be using a public jobs API to fetch data about the jobs.
-
-It took me two days to create from scratch and release this project.
+I use a public jobs API to fetch data about the jobs.
 
 - This app is for showcasing purposes only. Some data should be moved to an .env file in production.
-- For showcasing, we added one translation only.
-- We decided to implement the Job Detail page as a modal to increase performance and to slightly change its layout for UX purposes, to limit responsive layout changes and, for best practice purposes, to avoid flooding the code with media queries or creating redundant code.
-- The data is fetched only once recursively and not every time the data is filtered for performance purposes. Data results are paginated and you can see the first page straightaway while data is loaded in the background. Filtering and pagination navigation are available once all data is fetched.
-- Due to limited time, the project is guaranteed for consistency in Chrome Version 107.0.5304.110 (Official Build) (x86_64) only.
+- For showcasing, I added one translation only.
+- I decided to implement the Job Detail page as a modal to increase performance.
+- The data is fetched only once recursively and not every time the data is filtered for performance purposes. Data results are paginated and you can see the first page while data is loaded in the background. Filtering and pagination navigation are available once all data is fetched.
+- The project is guaranteed to be bug-free in Chrome Version 107.0.5304.110 (Official Build) (x86_64) only.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.

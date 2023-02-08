@@ -56,7 +56,13 @@ function App() {
     event.preventDefault()
     setFilteredInfo(
       info
-        .map((x) => x.jobs.filter((y) => y.title === value))
+        .map((x) =>
+          x.jobs.filter(
+            (y) =>
+              y.title.toLowerCase() === value.toLowerCase() ||
+              y.title.toLowerCase().includes(value.toLowerCase())
+          )
+        )
         .filter((z) => z.length > 0)
         .flat()
     )
